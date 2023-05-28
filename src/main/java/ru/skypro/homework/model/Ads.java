@@ -7,31 +7,35 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.util.Objects;
-
-@Entity
-@Data
-@Table(name = "ads")
+/**
+ В классе `Ads`(Объявления) определены конструкторы для создания объектов класса,а также методы геттеров и сеттеров для доступа
+ к полям. Методы `equals()`, `hashCode()` и `toString()` вызываются при сравнении, хешировании и преобразовании
+ объекта в строку.
+ */
+@Entity//Аннотация `@Entity` используется в JPA-сущностях для обозначения, что класс представляет собой таблицу в базе данных.
+@Data//Аннотация `@Data` автоматически создает все необходимые методы геттеров, сеттеров, методы сравнения и хеширования, а также метод toString().
+@Table(name = "ads")// - аннотация определяет имя таблицы в базе данных.
 public class Ads {
     @Id
     private Integer id;
-    @NotNull
-    @Min(1)
+    @NotNull// для значения, которое не может быть null,
+    @Min(1)// для минимального значения, которое может принимать поле
     private Integer pk;
 
-    @NotNull
-    @Min(1)
+    @NotNull//для значения, которое не может быть null,
+    @Min(1)//для минимального значения, которое может принимать поле
     private Integer author;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank//для значения, которое не должно быть пустой строкой
+    @Size(max = 100)// для проверки размера строки,
     private String title;
 
-    @NotNull
-    @Positive
+    @NotNull// для значения, которое не может быть null,
+    @Positive//для положительного значения
     private Integer price;
 
-    @NotBlank
-    @Size(max = 500)
+    @NotBlank//для значения, которое не должно быть пустой строкой
+    @Size(max = 500)// / для проверки размера строки,
     private String image;
 
     public Ads(Integer pk, Integer author, String title, Integer price, String image) {
@@ -46,76 +50,4 @@ public class Ads {
 
     }
 
-    public Integer getPk() {
-        return pk;
-    }
-
-    public void setPk(Integer pk) {
-        this.pk = pk;
-    }
-
-    public Integer getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Integer author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ads ads = (Ads) o;
-        return id.equals(ads.id) && pk.equals(ads.pk) && author.equals(ads.author) && title.equals(ads.title) && price.equals(ads.price) && image.equals(ads.image);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, pk, author, title, price, image);
-    }
-
-    @Override
-    public String toString() {
-        return "Ads{" +
-                "id=" + id +
-                ", pk=" + pk +
-                ", author=" + author +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }

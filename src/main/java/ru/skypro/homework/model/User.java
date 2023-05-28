@@ -4,31 +4,39 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Objects;
-
+/**
+ Аннотация @Entity говорит JPA/Hibernate, что класс является сущностью базы данных. Она позволяет привязать класс к
+ таблице в базе данных. В данном случае класс User является сущностью, которая будет храниться в таблице "users".
+ Атрибуты класса описывают различные параметры пользователя, такие как его имя, фамилию, адрес электронной почты,
+ телефонную информацию и т.д.
+ */
 @Entity
-@Data
-@Table(name = "users")
+@Data//добавляет в класс методы генерации геттеров, сеттеров, метода hashCode(), метода equals() и метода toString()
+// для всех полей класса автоматически.
+@Table(name = "users")// указывает, что таблица, с которой ассоциирован класс User, имеет имя "users".
 public class User {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Min(1)
+    @Id// указывает, что поле id является первичным ключом, уникальным для каждой записи таблицы.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//указывает, что значения id генерируются автоматически.
+    @NotNull//указывает, что поле не может иметь значение null.
+    @Min(1)// указывает, что значение поля должно быть больше указанной константы.
     private Integer id;
-    @NotBlank
-    @Email
+    @NotBlank//указывает, что строковое значение поля не может быть пустым.
+    @Email//указывает, что значение поля должно быть корректным email-адресом.
     private String email;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank////указывает, что строковое значение поля не может быть пустым.
+    @Size(max = 50)//указывает ограничения на длину строки.
     private String firstName;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank////указывает, что строковое значение поля не может быть пустым.
+    @Size(max = 50)//указывает ограничения на длину строки.
     private String lastName;
 
-    @Pattern(regexp = "\\+7\\d{10}")
+    @Pattern(regexp = "\\+7\\d{10}")// аннотация, которая указывает, что поле должно соответствовать заданному
+    // регулярному выражению. В данном классе аннотация @Pattern(regexp = "\\+7\\d{10}") используется для поля
+    // phone, которое должно содержать номер телефона в формате "+7" и еще 10 цифр.
     private String phone;
 
     private String image;
@@ -45,77 +53,6 @@ public class User {
 
     public User() {
 
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id) && email.equals(user.email) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && phone.equals(user.phone) && image.equals(user.image);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, firstName, lastName, phone, image);
-    }
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", image='" + image + '\'' +
-                '}';
     }
 
 }

@@ -21,9 +21,12 @@ import ru.skypro.homework.service.CommentService;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
-@RestController
-@RequestMapping("/ads")
-@CrossOrigin(value = "http://localhost:3000")
+/**
+ * Класс CommentController является REST-контроллером, который обрабатывает запросы для работы с комментариями.
+ */
+@RestController//аннотация @RestController указывает, что это класс REST-контроллера
+@RequestMapping("/ads")//устанавливает базовый URL-адрес для всех методов, которые обрабатываются этим контроллером.
+@CrossOrigin(value = "http://localhost:3000")//определяет адреса и порты, с которых будет доступен данный ресурс.
 public class CommentController {
     private final CommentService commentService;
     private final AdsRepository adsRepository;
@@ -35,7 +38,8 @@ public class CommentController {
         this.commentRepository = commentRepository;
     }
 
-
+    //getComments предназначена для получения списка комментариев к определенному объявлению. Для этого нужно передать ID
+    // объявления в параметре URL. В ответ сервер возвращает массив объектов CommentDto в формате JSON.
     @Operation(
             operationId = "getComments",
             summary = "Получить комментарии объявления",
@@ -54,6 +58,9 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+// операция "addComment" предназначена для добавления нового комментария к определенному объявлению. Для этого нужно
+// передать объект Comment в теле запроса. В ответ сервер вернет объект CommentDto созданного комментария.
     @Operation(
             operationId = "addComment",
             summary = "Добавить комментарий к объявлению",
@@ -73,6 +80,9 @@ public class CommentController {
     }
 
 
+    // операция "deleteComment" предназначена для удаления определенного комментария. Для этого нужно передать ID
+    // комментария и ID объявления в параметрах URL. В ответ сервер вернет статус 204 No Content в случае успешного
+    // удаления.
     @Operation(
             operationId = "deleteComment",
             summary = "Удалить комментарий",
@@ -86,6 +96,10 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+   // операция "updateComment" предназначена для обновления определенного комментария. Для этого нужно передать в теле
+   // запроса объект Comment с обновленными полями и ID комментария и ID объявления в параметрах URL. В ответ сервер
+   // вернет объект Comment обновленного комментария.
     @Operation(
             operationId = "adId",
             summary = "Обновить комментарий",

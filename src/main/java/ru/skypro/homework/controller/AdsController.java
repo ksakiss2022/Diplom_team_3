@@ -20,11 +20,17 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@RestController
-@RequestMapping("/ads")
-@CrossOrigin(value = "http://localhost:3000")
+/**
+ * Класс AdsController представляет собой Rest-контроллер, который содержит операции для работы с объявлениями.
+ */
+@RestController// означает, что данный класс является контроллером, который обрабатывает REST-запросы и возвращает JSON-ответы
+@RequestMapping("/ads")//указывает, что все операции контроллера будут обрабатываться по пути /ads.
+@CrossOrigin(value = "http://localhost:3000")//включает поддержку CORS на уровне контроллера, что позволяет принимать
+// запросы из указанного источника (по адресу http://localhost:3000).
 public class AdsController {
 
+    //операция "getAllAds" предназначена для получения списка всех объявлений. Для этого используется GET-запрос на путь
+    // /ads. В ответ сервер возвращает массив объектов AdsDto в формате JSON.
     @Operation(
             operationId = "getAllAds",
             summary = "Получить все объявления",
@@ -43,6 +49,8 @@ public class AdsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //операция "addAd" предназначена для добавления нового объявления. Для этого используется POST-запрос на путь /ads
+    // с объектом типа Ads в теле запроса. В ответ сервер возвращает объект AdsDto созданного объявления.
     @Operation(
             operationId = "addAd",
             summary = "Добавить объявление",
@@ -61,6 +69,9 @@ public class AdsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
+//операция "getAds" предназначена для получения информации об определенном объявлении. Для этого нужно передать ID
+// объявления в параметре URL. В ответ сервер возвращает объект AdsDto запрашиваемого объявления в формате JSON.
     @Operation(
             operationId = "getAds",
             summary = "Получить информацию об объявлении",
@@ -79,6 +90,8 @@ public class AdsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //операция "removeAd" предназначена для удаления определенного объявления. Для этого нужно передать ID объявления
+    // в параметре URL. В ответ сервер вернет статус 204 No Content в случае успешного удаления.
     @Operation(
             operationId = "removeAd",
             summary = "Удалить объявление",
@@ -92,6 +105,9 @@ public class AdsController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // операция "updateAds" предназначена для обновления определенного объявления. Для этого нужно передать в теле
+    // запроса объект Ads с обновленными полями и ID объявления в параметрах URL. В ответ сервер вернет объект
+    // AdsDto обновленного объявления.
     @Operation(
             operationId = "updateAds",
             summary = "Обновить информацию об объявлении",

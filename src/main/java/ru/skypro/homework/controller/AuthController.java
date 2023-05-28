@@ -17,10 +17,16 @@ import ru.skypro.homework.service.AuthService;
 
 import static ru.skypro.homework.dto.Role.USER;
 
-@Slf4j
-@CrossOrigin(value = "http://localhost:3000")
+/**
+ * Класс AuthController представляет собой Rest-контроллер, который содержит два метода для авторизации и регистрации
+ * пользователей.
+ */
+@Slf4j//добавляет в класс поддержку логирования с использованием библиотеки SLF4J.
+@CrossOrigin(value = "http://localhost:3000")//включает поддержку CORS на уровне контроллера, что позволяет принимать
+// запросы из указанного источника (по адресу http://localhost:3000).
 @RestController
-@RequiredArgsConstructor
+@RequiredArgsConstructor// генерирует конструктор с аргументами и помечает поля, инициализируемые через конструктор,
+// аннотацией @NonNull.
 public class AuthController {
 
     private final AuthService authService;
@@ -33,6 +39,11 @@ public class AuthController {
 //            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 //        }
 //    }
+
+    //Метод login является обработчиком POST-запроса на путь "/login" и принимает в качестве параметра объект LoginReq.
+    // Возвращаемый тип ResponseEntity<?> означает, что в зависимости от результата выполнения запроса, сервер может
+    // вернуть ответ с любым типом. Если пользователь с указанным логином и паролем был найден, метод возвращает
+    // ResponseEntity с кодом 200 OK. Если пользователь не найден, метод вернет ответ с кодом 403 Forbidden.
     @Operation(
             operationId = "login",
             summary = "Авторизация пользователя",
@@ -63,6 +74,10 @@ public class AuthController {
 //        }
 //    }
 
+
+    //Метод register также является обработчиком POST-запроса на путь "/register" и принимает объект RegisterReq.
+    // В случае успешной регистрации пользователя метод возвращает ResponseEntity со статусом 200 OK.
+    // Если при регистрации возникла ошибка, метод вернет ответ с кодом 400 Bad Request.
     @Operation(
             operationId = "register",
             summary = "Регистрация пользователя",

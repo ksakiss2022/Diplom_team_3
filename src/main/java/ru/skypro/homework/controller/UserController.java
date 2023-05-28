@@ -18,11 +18,17 @@ import org.springframework.http.HttpStatus;
 
 import ru.skypro.homework.dto.UserDto;
 
-@RestController
-@RequestMapping("/users")
-@CrossOrigin(value = "http://localhost:3000")
+/**
+ * Класс UserController является REST-контроллером, который обрабатывает запросы для работы с пользователями.
+ *
+ Класс содержит методы для обновления пароля, получения информации об авторизованном пользователе,
+ обновления информации и аватара пользователя.
+ */
+@RestController//указывает, что это класс REST-контроллера
+@RequestMapping("/users")// устанавливает базовый URL-адрес для всех методов, которые обрабатываются этим контроллером.
+@CrossOrigin(value = "http://localhost:3000")//определяет адреса и порты, с которых будет доступен данный ресурс.
 public class UserController {
-    private final UserService userService;
+    private final UserService userService;// внедряется UserService, который содержит бизнес-логику, связанную с пользователями.
 
     private PasswordEncoder passwordEncoder;
 
@@ -30,7 +36,12 @@ public class UserController {
         this.userService = userService;
     }
 
+
+//Аннотация @Operation содержит описание каждого метода, включая название,
+// описание, ответы и теги для документирования API.
     @Operation(
+            //Метод setPassword(@RequestBody NewPasswordDto newPassword,
+            // Authentication authentication) обрабатывает POST-запрос для обновления пароля пользователя.
             operationId = "setPassword",
             summary = "Обновление пароля",
             responses = {
@@ -53,6 +64,8 @@ public class UserController {
 
 
     @Operation(
+            // Метод getUser(Authentication authentication) обрабатывает GET-запрос для получения информации об
+            // авторизованном пользователе.
             operationId = "getUser",
             summary = "Получить информацию об авторизованном пользователе",
             responses = {
@@ -72,6 +85,8 @@ public class UserController {
     }
 
     @Operation(
+            //Метод updateUser(@RequestBody UserDto user, Authentication authentication)
+            // обрабатывает PATCH-запрос для обновления информации об авторизованном пользователе.
             operationId = "updateUser",
             summary = "Обновить информацию об авторизованном пользователе",
             tags = {"Пользователи"},
@@ -92,6 +107,8 @@ public class UserController {
     }
 
     @Operation(
+            //Метод updateUserImage(@RequestParam("image") MultipartFile image, Authentication authentication)
+            // обрабатывает PATCH-запрос для обновления аватара авторизованного пользователя.
             operationId = "updateUserImage",
             summary = "Обновить аватар авторизованного пользователя",
             tags = {"Пользователи"},

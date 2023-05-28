@@ -8,13 +8,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
-
+/**
+ В классе `Comment`(Коментарий) определены конструкторы для создания объектов класса,а также методы геттеров и сеттеров для доступа
+ к полям. Методы `equals()`, `hashCode()` и `toString()` вызываются при сравнении, хешировании и преобразовании
+ объекта в строку.
+ */
 @Entity
-@Data
-@Table(name = "comment")
+@Data//позволяет сгенерировать геттеры, сеттеры, методы equals и hashCode.
+@Table(name = "comment")// указывает на имя таблицы в базе данных, связанной с этой сущностью.
 public class Comment {
 
-    @Id
+    @Id//указывает, что поле id является идентификатором сущности.
     private Integer id;
     private int author;
     private String authorImage;
@@ -24,7 +28,8 @@ public class Comment {
 
     @NotBlank
     @Size(max = 200)
-    private String text;
+    private String text;//У поля text есть дополнительные ограничения, заданные аннотациями @NotBlank и @Size.
+    // Это означает, что поле не может быть пустым и не может содержать более 200 символов.
 
 
 
@@ -38,87 +43,6 @@ public class Comment {
         this.createdAt = createdAt;
         this.pk = pk;
         this.text = text;
-    }
-
-    public int getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(int author) {
-        this.author = author;
-    }
-
-    public String getAuthorImage() {
-        return authorImage;
-    }
-
-    public void setAuthorImage(String authorImage) {
-        this.authorImage = authorImage;
-    }
-
-    public String getAuthorFirstName() {
-        return authorFirstName;
-    }
-
-    public void setAuthorFirstName(String authorFirstName) {
-        this.authorFirstName = authorFirstName;
-    }
-
-    public long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public int getPk() {
-        return pk;
-    }
-
-    public void setPk(int pk) {
-        this.pk = pk;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return author == comment.author && createdAt == comment.createdAt && pk == comment.pk && id.equals(comment.id) && authorImage.equals(comment.authorImage) && authorFirstName.equals(comment.authorFirstName) && text.equals(comment.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, author, authorImage, authorFirstName, createdAt, pk, text);
-    }
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", author=" + author +
-                ", authorImage='" + authorImage + '\'' +
-                ", authorFirstName='" + authorFirstName + '\'' +
-                ", createdAt=" + createdAt +
-                ", pk=" + pk +
-                ", text='" + text + '\'' +
-                '}';
     }
 
 }
